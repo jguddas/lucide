@@ -5,14 +5,17 @@
   "author": "John Letey",
   "scripts": {
     "dev": "next dev",
+    "predev": "pnpm generate",
+    "generate": "ts-node --swc scripts/generate.ts",
     "copy-assets": "mkdir -p ./public/docs/images && cp -rf ../docs/images ./public/docs",
-    "prebuild": "ts-node --swc scripts/preBuild.ts && pnpm -w lucide-react build",
+    "prebuild": "pnpm generate && ts-node --swc scripts/preBuild.ts && pnpm -w lucide-react build",
     "build": "pnpm copy-assets && pnpm prebuild && next build",
     "export": "next export -o build",
     "deploy": "pnpm build && pnpm export",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "jest",
+    "pretest": "pnpm generate",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

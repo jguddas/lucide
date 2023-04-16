@@ -1,4 +1,3 @@
-import { getAllData } from '../../lib/icons';
 import Layout from '../../components/Layout';
 import { Box, Grid, Heading } from '@chakra-ui/react';
 import IconCategory from '../../components/IconCategory';
@@ -6,25 +5,20 @@ import CategoryChangesBar from '../../components/CategoryChangesBar';
 import { useState, useRef, RefAttributes } from 'react';
 import IconReorder from '../../components/IconReorder';
 import UnCategorizedIcons from '../../components/UnCategorizedIcons';
-import { getAllCategories } from 'src/lib/categories';
-import { Category, IconEntity } from 'src/types';
+import { IconEntity } from 'src/types';
+import icons from 'src/generated/data';
+import categoryList from 'src/generated/categories';
 
-interface EditCategoriesPageProps {
-  icons: IconEntity[]
-  categories: Category[]
-}
-
-
-const EditCategoriesPage = ({ icons = [], categories: categoryList }: EditCategoriesPageProps) => {
+const EditCategoriesPage = () => {
   const [dragging, setDragging] = useState(false);
   const [categories, setCategories] = useState<Record<string, IconEntity[]>>(
     categoryList.reduce((categoryMap, { name }) => {
-      const categoryIcons = icons.filter(({categories}) => categories.includes(name))
+      const categoryIcons = icons.filter(({ categories }) => categories.includes(name));
 
-      categoryMap[name] = categoryIcons
+      categoryMap[name] = categoryIcons;
 
       return categoryMap;
-    }, {}),
+    }, {})
   );
   const [changes, setChanges] = useState(0);
   const dropZones = useRef<[string, HTMLDivElement][]>([]);
@@ -32,14 +26,14 @@ const EditCategoriesPage = ({ icons = [], categories: categoryList }: EditCatego
   const handleChange = (category: string) => (newIcons: string[]) => {
     console.log(category, newIcons);
 
-    setCategories(currentCategories => {
+    setCategories((currentCategories) => {
       const newCategories = {
         ...currentCategories,
-        [category]: newIcons.map(iconName => icons[iconName]),
+        [category]: newIcons.map((iconName) => icons[iconName]),
       };
 
       if (JSON.stringify(currentCategories) !== JSON.stringify(newCategories)) {
-        setChanges(changes => changes + 1);
+        setChanges((changes) => changes + 1);
       }
 
       return newCategories;
@@ -73,7 +67,7 @@ const EditCategoriesPage = ({ icons = [], categories: categoryList }: EditCatego
                 name={category}
                 key={category}
                 dragging={dragging}
-                ref={el =>
+                ref={(el) =>
                   (dropZones.current[index] = [category, el]) as RefAttributes<HTMLDivElement>
                 }
               >
@@ -96,10 +90,3 @@ const EditCategoriesPage = ({ icons = [], categories: categoryList }: EditCatego
 };
 
 export default EditCategoriesPage;
-
-export async function getStaticProps() {
-  const icons = await getAllData({ withChildKeys: true });
-  const categories = await getAllCategories()
-
-  return { props: { icons, categories } };
-}

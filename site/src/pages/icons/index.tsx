@@ -1,10 +1,10 @@
 import Layout from '../../components/Layout';
 import IconOverview from '../../components/IconOverview';
-import { getAllData } from '../../lib/icons';
-import { getAllCategories } from 'src/lib/categories';
 import IconDetailOverlay from 'src/components/IconDetailOverlay';
+import data from 'src/generated/data';
+import categories from 'src/generated/categories';
 
-const IconsPage = ({ data, categories }) => {
+const IconsPage = () => {
   return (
     <Layout>
       <IconDetailOverlay />
@@ -14,15 +14,3 @@ const IconsPage = ({ data, categories }) => {
 };
 
 export default IconsPage;
-
-export async function getStaticProps() {
-  const data = await getAllData({ withChildKeys: true });
-  const categories = await getAllCategories()
-
-  return {
-    props: {
-      data,
-      categories,
-    },
-  };
-}

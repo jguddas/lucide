@@ -1,4 +1,5 @@
 .idea
 public/docs/images
+src/generated
 .vercel
 .env
