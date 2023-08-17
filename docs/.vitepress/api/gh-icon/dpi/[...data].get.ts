@@ -41,36 +41,36 @@ export default eventHandler(async (event) => {
 
   return pngBuffer
 
-//   return `
-// <svg xmlns="http://www.w3.org/2000/svg" width="${imageSize}" height="${imageSize}" viewBox="0 0 ${imageSize} ${imageSize}">
-//   <style>
-//     @media screen and (prefers-color-scheme: light) {
-//       #fallback-background { fill: transparent; }
-//     }
-//     @media screen and (prefers-color-scheme: dark) {
-//       #fallback-background { fill: transparent; }
-//       rect { fill: #fff; }
-//     }
-//   </style>
-//   <mask id="mask">
-//     <image
-//       width="${imageSize}"
-//       height="${imageSize}"
-//       href="data:image/png;base64,${pngBuffer.toString('base64')}"
-//       image-rendering="pixelated"
-//     />
-//   </mask>
-//   <rect
-//     id="fallback-background"
-//     width="${imageSize}"
-//     height="${imageSize}" ry="${imageSize / 24}"
-//     fill="#fff"
-//   />
-//   <rect
-//     width="${imageSize}"
-//     height="${imageSize}"
-//     fill="#000"
-//     mask="url(#mask)"
-//   />
-// </svg>`;
+  return `
+<svg xmlns="http://www.w3.org/2000/svg" width="${imageSize}" height="${imageSize}" viewBox="0 0 ${imageSize} ${imageSize}">
+  <style>
+    @media screen and (prefers-color-scheme: light) {
+      #fallback-background { fill: transparent; }
+    }
+    @media screen and (prefers-color-scheme: dark) {
+      #fallback-background { fill: transparent; }
+      rect { fill: #fff; }
+    }
+  </style>
+  <mask id="mask">
+    <image
+      width="${imageSize}"
+      height="${imageSize}"
+      href="data:image/png;base64,${pngBuffer.toString('base64')}"
+      image-rendering="pixelated"
+    />
+  </mask>
+  <rect
+    id="fallback-background"
+    width="${imageSize}"
+    height="${imageSize}" ry="${imageSize / 24}"
+    fill="#fff"
+  />
+  <rect
+    width="${imageSize}"
+    height="${imageSize}"
+    fill="#000"
+    mask="url(#mask)"
+  />
+</svg>`;
 });
