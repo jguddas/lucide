@@ -27,6 +27,8 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      - run: node ./scripts/updateContributors.mjs ${{ steps.changed-files.outputs.all_changed_files }}
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node ./scripts/updateContributors.mjs ${{ steps.changed-files.outputs.all_changed_files }}
       - run: echo "::add-matcher::.github/diff.json"
       - run: git diff --exit-code
