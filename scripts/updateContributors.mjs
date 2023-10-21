@@ -27,8 +27,7 @@ const getUserName = pMemoize(
 );
 
 const getContributors = async (file, includeCoAuthors) => {
-  const { all: commits } = await simpleGit().log([`-${FETCH_DEPTH}`, '--', file]);
-  console.log({ FETCH_DEPTH, commits: commits.length });
+  const { all: commits } = await simpleGit().log([`HEAD~${FETCH_DEPTH}..`, '--', file]);
 
   const emails = new Map();
   for (let i = commits.length - 1; i >= 0; i -= 1) {
