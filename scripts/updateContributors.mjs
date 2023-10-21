@@ -32,6 +32,7 @@ const getContributors = async (file, includeCoAuthors) => {
     '--',
     file,
   ]);
+  console.log(commits.length, process.env.FETCH_DEPTH);
 
   const emails = new Map();
   for (let i = 0; i < commits.length; i += 1) {
