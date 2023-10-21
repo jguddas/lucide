@@ -20,7 +20,7 @@ jobs:
           files: icons/*
       - uses: actions/setup-node@v3.8.1
       - name: Install dependencies
-        run: npm install -g simple-git
+        run: npm install simple-git
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FETCH_DEPTH: ${{ github.event.pull_request.commits }}
