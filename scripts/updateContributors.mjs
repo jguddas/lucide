@@ -27,12 +27,12 @@ const getUserName = pMemoize(
 
 const getContributors = async (file, includeCoAuthors) => {
   const { all: commits } = await simpleGit().log([
-    '--reverse',
     process.env.FETCH_DEPTH !== undefined ? [`-${process.env.FETCH_DEPTH}`] : [],
+    '--reverse',
     '--',
     file,
   ]);
-  console.log(commits.length, process.env.FETCH_DEPTH);
+  console.log(commits);
 
   const emails = new Map();
   for (let i = 0; i < commits.length; i += 1) {
