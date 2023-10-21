@@ -30,5 +30,5 @@ jobs:
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node ./scripts/updateContributors.mjs ${{ steps.changed-files.outputs.all_changed_files }}
-      - run: git diff | perl -pe 's/\n/%0A/' | perl -pe 's/%0A(\+\+\+ b\/)/\n\1/' | perl -ne 's/\+\+\+ b\/([^%0A]+)%0A@@ -(\d+)[^\s\+]*\s\+(\d+)[^\@\@]*@@(.*)/::error file=\1,line=\2::\4/ && print'
+      - run: git diff | perl -pe 's/\n/%0A/' | perl -pe 's/%0A(\+\+\+ b\/)/\n\1/' | perl -ne 's/\+\+\+ b\/([^%0A]+)%0A@@ -(\d+)[^\s\+]*\s\+(\d+)[^\@\@]*@@(.*)/::error file=\1,line=\2::```diff%0A\4%0A```/ && print'
       - run: git diff --exit-code
