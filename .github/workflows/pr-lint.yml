@@ -34,5 +34,6 @@ jobs:
       - env:
           ANNOTATION_SEVERITY: notice
           ANNOTATION_TITLE: Contributors have changed!
-        run: git diff --unified=0 | perl -ne '/^(\+|- |@)/ && print' | perl -pe 's/\n/%0A/' | perl -pe 's/%0A(\+\+\+ b\/)/\n\1/g' | perl -pe "s/\+\+\+ b\/([^@]*)%0A@@ -(\d+)[^\s]* \+(\d+)[^@]*@@(.*)/::$ANNOTATION_SEVERITY file=\1,line=\2,endLine=\3,title=$ANNOTATION_TITLE::\4/"
+          ANNOTATION_DESCRIPTION: Don't add people who have only performed automatic optimizations
+        run: git diff --unified=0 | perl -ne '/^(\+|- |@)/ && print' | perl -pe 's/\n/%0A/' | perl -pe 's/%0A(\+\+\+ b\/)/\n\1/g' | perl -pe "s/\+\+\+ b\/([^@]*)%0A@@ -(\d+)[^\s]* \+(\d+)[^@]*@@(.*)/::$ANNOTATION_SEVERITY file=\1,line=\2,endLine=\3,title=$ANNOTATION_TITLE::$ANNOTATION_DESCRIPTION%0A\4/"
       - run: git diff --exit-code
