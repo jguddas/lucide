@@ -1,0 +1,32 @@
+name: lint
+
+on:
+  pull_request:
+    paths:
+      - 'icons/*'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v35
+        with:
+          files: icons/*
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v3.8.1
+        with:
+          node-version: 18
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - run: node ./scripts/updateContributors.mjs ${{ steps.changed-files.outputs.all_changed_files }}
+      - run: echo "::add-matcher::.github/diff.json"
+      - run: git diff --exit-code
