@@ -31,6 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node ./scripts/updateContributors.mjs ${{ steps.changed-files.outputs.all_changed_files }}
       - env:
-          DIFF_ERROR_TITLE: 'Contributors have changed'
-        run: git diff --unified=0 | perl -ne '/^(\+|- |@)/ && print' | perl -pe 's/\n/%0A/' | perl -pe 's/%0A(\+\+\+ b\/)/\n\1/g' | perl -pe "s/\+\+\+ b\/([^@]*)%0A@@ -(\d+)[^\s]* \+(\d+)[^@]*@@(.*)/::error file=\1,line=\2,endLine=\3,title=$DIFF_ERROR_TITLE::\4/"
+          ANNOTATION_SEVERITY: notice
+          ANNOTATION_TITLE: Contributors have changed!
+        run: git diff --unified=0 | perl -ne '/^(\+|- |@)/ && print' | perl -pe 's/\n/%0A/' | perl -pe 's/%0A(\+\+\+ b\/)/\n\1/g' | perl -pe "s/\+\+\+ b\/([^@]*)%0A@@ -(\d+)[^\s]* \+(\d+)[^@]*@@(.*)/::$ANNOTATION_SEVERITY file=\1,line=\2,endLine=\3,title=$ANNOTATION_TITLE::\4/"
       - run: git diff --exit-code
