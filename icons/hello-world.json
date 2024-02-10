@@ -3,6 +3,14 @@
   "contributors": [
     "jguddas"
   ],
-  "tags": [],
-  "categories": []
+  "tags": [
+    "hello",
+    "this",
+    "is",
+    "a",
+    "test"
+  ],
+  "categories": [
+    "shapes"
+  ]
 }
