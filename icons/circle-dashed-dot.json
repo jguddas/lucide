@@ -16,5 +16,13 @@
   "categories": [
     "development",
     "shapes"
+  ],
+  "aliases": [
+    {
+      "name": "circle-dot-dashed",
+      "deprecate": true,
+      "deprecationReason": "alias.name",
+      "toBeRemovedInVersion": "v1.0"
+    }
   ]
 }
