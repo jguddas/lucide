@@ -1,9 +1,9 @@
 {
   "$schema": "../icon.schema.json",
   "contributors": [
-    "ericfennis"
+    "ericfennis",
+    "jguddas"
   ],
-  "use-cases": [],
   "tags": [
     "mouse"
   ],
